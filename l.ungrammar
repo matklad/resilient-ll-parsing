@@ -1,0 +1,35 @@
+File = Fn*
+
+Fn = 'fn' 'name' ParamList ('->' TypeExpr)? Block
+
+ParamList = '(' Param* ')'
+Param = 'name' ':' TypeExpr ','?
+
+TypeExpr = 'name'
+
+Block = '{' Stmt* '}'
+
+Stmt =
+  StmtLet
+| StmtReturn
+| StmtExpr
+
+StmtLet    = 'let' 'name' '=' Expr ';'
+StmtReturn = 'return' Expr ';'
+StmtExpr   = Expr ';'
+
+Expr =
+  ExprLiteral
+| ExprName
+| ExprParen
+| ExprBinary
+| ExprCall
+
+ExprLiteral = 'int' | 'true' | 'false'
+ExprName    = 'name'
+ExprParen   = '(' Expr ')'
+ExprBinary  = Expr ('+' | '-' | '*' | '/') Expr
+ExprCall    = Expr ArgList
+
+ArgList = '(' Arg* ')'
+Arg = Expr ','?
